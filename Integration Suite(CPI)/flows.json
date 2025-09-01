@@ -1,0 +1,95 @@
+[
+    {
+        "id": "52b9beb5e89724e6",
+        "type": "tab",
+        "label": "Post CEP para Integration Suite",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "235175dde8f05d00",
+        "type": "inject",
+        "z": "52b9beb5e89724e6",
+        "name": "CEP para Consulta",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "82720200",
+        "payloadType": "str",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "e2245964975cc087"
+            ]
+        ]
+    },
+    {
+        "id": "e2245964975cc087",
+        "type": "function",
+        "z": "52b9beb5e89724e6",
+        "name": "Payload JSON",
+        "func": "\nmsg.payload = {\n    \"cep\": msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 180,
+        "wires": [
+            [
+                "ec2c7d46c6866ccb"
+            ]
+        ]
+    },
+    {
+        "id": "ec2c7d46c6866ccb",
+        "type": "http request",
+        "z": "52b9beb5e89724e6",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://luiz-trial-jzu0u9r5.it-cpitrial05-rt.cfapps.us10-001.hana.ondemand.com/http/cep/consulta",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "4c637167e287bd39"
+            ]
+        ]
+    },
+    {
+        "id": "4c637167e287bd39",
+        "type": "debug",
+        "z": "52b9beb5e89724e6",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    }
+]
